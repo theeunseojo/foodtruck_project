@@ -1,19 +1,19 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-
-const userSchema=mongoose.Schema({
+// schema 생성 ==> 데이터의 자료형을 미리 지정하기 위해 사용.
+const userSchema = mongoose.Schema({
     name: {
         type: String,
         maxlength: 50
     },
-    email:{
-        type:String,
-        trim:true,
-        unique:1
+    email: {
+        type: String,
+        trim: true,
+        unique: 1
     },
     password: {
         type: String,
-        minlength: 5
+        maxlength: 50
     },
     lastname: {
         type: String,
@@ -21,17 +21,16 @@ const userSchema=mongoose.Schema({
     },
     role: {
         type: Number,
-        default:0
+        default: 0
     },
-    Image:String,
+    image: String,
     token:{
         type: String
     },
-    tokenExp: {
+    tolenExp: {
         type: Number
     }
 })
 
-const User = mongoose.model('User',userSchema)
-
-module.exports={User}
+const User = mongoose.model('User', userSchema) // model 생성
+module.exports = User; // model을 다른 곳에서도 사용할 수 있도록 export
