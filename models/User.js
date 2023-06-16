@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10
 
 // schema 생성 ==> 데이터의 자료형을 미리 지정하기 위해 사용.
 const userSchema = mongoose.Schema({
@@ -8,8 +10,8 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        trim: true,
-        unique: 1
+//        trim: true, // x e ctler@naver.com 이런 값이 들어왔을 때 trim 은 공백을 없애준다.
+//        unique: 1 //중복된 값은 사용하지 못한다.
     },
     password: {
         type: String,
@@ -29,6 +31,23 @@ const userSchema = mongoose.Schema({
     },
     tolenExp: {
         type: Number
+    }
+})
+
+userSchema.pre('save', function(next) {
+    var user = this
+
+    if (user.isModified('password')) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            if (err) return next(err)
+            bcrypt.hash(user.password, salt, function (err, hash) {
+                if (err) return next(err)
+                user.password = hash
+                next()
+            })
+        })
+    } else {
+        next()
     }
 })
 

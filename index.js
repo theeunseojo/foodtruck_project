@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 5000
 const bodyParser=require('body-parser');
+
+const config = require('./config/key');
+
 const User = require("./models/User");
 
 
@@ -16,12 +19,12 @@ const mongoose = require('mongoose')
 const uri="mongodb+srv://SeoinLee:abcd1234@atlascluster.qcco0vz.mongodb.net/";
 
 mongoose
-    .connect(uri)
+    .connect(config.mongoURI)
     .then(()=> console.log("MongoDB connected..."))
     .catch((err)=>{console.log(err)});
 
 app.get('/', (req, res) => { //request -> 클라이언트의 요청, response -> 서버가 클라이언트에 응답
-  res.send('Hello World!~~안녕하세요!')
+  res.send('Hello World!~ 새해 복 많이 받아랏!^^')
 })
 
 app.post('/register',(req,res)=>{
