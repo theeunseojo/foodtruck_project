@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 
 const mongoose = require('mongoose')
-const uri="mongodb+srv://SeoinLee:abcd1234@atlascluster.qcco0vz.mongodb.net/";
+const uri="mongodb+srv://samoht:qwe7891234@cluster0.gpwd2g7.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose
     .connect(config.mongoURI)
